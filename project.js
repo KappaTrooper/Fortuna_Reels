@@ -12,16 +12,18 @@ const ROWS = 3;
 const COLS = 3;
 
 const SYMBOLS_COUNT = {
-    "A"; 2,
+    "A": 2,
     "B": 4,
     "C": 6,
     "D": 8
 }
 
-
-
-
-
+const SYMBOLS_VALUES = {
+    "A": 5,
+    "B": 4,
+    "C": 3,
+    "D": 2
+}
 
 
 const deposit = () => {
@@ -67,12 +69,39 @@ const getbet = (balance, lines) => {
     }
 }
 
+// spin the slot machine
+const spin = () => {
+    const symbols = [];
+    // generated array with all the symbols users can pick from
+    for (const [symbol, count]  of Object.entries(SYMBOLS_COUNT)) {
+        for(let i = 0; i < count; i++) {
+            symbols.push(symbol);
+        }
+    }
 
+    const reels = []; // temporary array, has all the reels
+    for (let i = 0; i < COLS; i++) { // loop all the arrays we have
+        reels.push([]);  // since row col 3 maxium it can push is 3
+            const reelSymbols = [...symbols];
+            // generates row with selected symbols for rows        
+            for (let j = 0; j < ROWS; j++) {
+            // randomly selects index
+            const randomIndex = Math.floor(Math.random() * reelSymbols.length)
+            const selectedSymbol = reelSymbols[randomIndex];
+            reels[i].push(selectedSymbol);
+            reelSymbols.splice(randomIndex, 1);
+        }
+    }
+    return reels;
+}
+
+const reels = spin();
+console.log(reels)
 let balance = deposit();
 const numberOfLines = getNumberOfLines();
 const bet = getbet(balance, numberOfLines)
 
-console.log(bet)
+
 
 
 
