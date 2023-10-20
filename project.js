@@ -4,7 +4,7 @@
 // 4. Spin the slot machine
 // 5. check if user won
 // 6. give user their winnings 
-// 7. play again
+// 7. play again or exit
 
 const prompt = require("prompt-sync")();
 
